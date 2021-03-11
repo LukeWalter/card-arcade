@@ -1,6 +1,7 @@
 package play;
 
 import cards.standard.*;
+import games.blackjack.*;
 
 public class Driver {
 
@@ -10,14 +11,9 @@ public class Driver {
     } // run
     public static void main(String[] args) {
 
-        Deck d = new Deck(3);
+        Blackjack blj = new Blackjack(1);
 
-        System.out.println(d.draw());
-        System.out.println(d.draw());
-        System.out.println(d.draw());
-        System.out.println(d.draw());
-        System.out.println(d.draw());
-        System.out.println(d.draw());
+        blj.play();
         
     } // main
 
