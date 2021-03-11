@@ -13,30 +13,6 @@ public class Card {
 
     } // Constructor
 
-    public Card(String full) throws IllegalArgumentException {
-        
-        full.trim();
-        Scanner sc = new Scanner(full);
-        
-        try {
-
-            String input = sc.next();
-            sc.next();
-
-            suit = Suit.valueOf(sc.next());
-            setValue(input);
-
-        } catch (Exception e) {
-            throw new IllegalArgumentException();
-
-        } finally {
-            sc.close();   
-            
-        } // try
-
-
-    } // Constructor
-
     public Card(Card other) {
         suit = other.suit;
         value = other.value;
@@ -54,7 +30,8 @@ public class Card {
     } // getValue
 
     public String toString() {
-        return "[" + value + " of " + suit + "]";
+        if (suit == Suit.WILD) return "[WILD CARD]";
+        else return "[" + value + " of " + suit + "]";
 
     } // toString
 

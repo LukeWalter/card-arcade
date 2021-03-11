@@ -22,7 +22,7 @@ public class Deck {
         fullDeck = Arrays.<Card>copyOf(standardDeck, standardDeck.length + jokers);
 
         for (int i = standardDeck.length; i < fullDeck.length; i++) {
-            fullDeck[i] = new Card("W of WILD");
+            fullDeck[i] = new Card("W", Suit.WILD);
 
         } // for
 
