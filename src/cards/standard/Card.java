@@ -1,7 +1,5 @@
 package cards.standard;
 
-import java.util.Scanner;
-
 public class Card {
 
     private Suit suit;
