@@ -8,49 +8,52 @@ import java.util.Stack;
 
 public class Deck {
 
-    private Stack<Card> deck;
-    private Card[] fullDeck;
+    private Stack<Card> stock;
+    private Stack<Card> discard;
+    private Card[] pack;
 
     public Deck() {
-        fullDeck = standardDeck;
-        reset(false);
+        
+        pack = standardDeck;
+
+        stock = new Stack<>();
+        Collections.addAll(stock, pack);
+
+        discard = new Stack<>();
     
     } // Constructor
 
     public Deck(int jokers) {
 
-        fullDeck = Arrays.<Card>copyOf(standardDeck, standardDeck.length + jokers);
+        pack = Arrays.<Card>copyOf(standardDeck, standardDeck.length + jokers);
 
-        for (int i = standardDeck.length; i < fullDeck.length; i++) {
-            fullDeck[i] = new Card("W", Suit.WILD);
+        for (int i = standardDeck.length; i < pack.length; i++) {
+            pack[i] = new Card("W", Suit.WILD);
 
         } // for
 
-        reset(false);
+        stock = new Stack<>();
+        Collections.addAll(stock, pack);
+
+        discard = new Stack<>();
 
     } // Constructor
 
     public Deck(Card[] set) {
-        fullDeck = set;
-        reset(false);
+        
+        pack = set;
+
+        stock = new Stack<>();
+        Collections.addAll(stock, pack);
+
+        discard = new Stack<>();
 
     } // Constructor
 
-    public void reset(boolean shuffling) throws IllegalStateException {
-        
-        if (fullDeck == null) throw new IllegalStateException(); 
-        
-        deck = new Stack<>();
-        Collections.addAll(deck, fullDeck);
-
-        if (shuffling) shuffle();
-
-    } // reset
-
-    public Card draw() {
+    public Card popStock() {
         
         try {
-            return deck.pop();
+            return stock.pop();
 
         } catch (EmptyStackException ese) {
             return null;
@@ -59,12 +62,28 @@ public class Deck {
          
     } // top
 
+    public void pushDiscard(Card c) throws IllegalArgumentException {
+        
+        if (c == null) throw new IllegalArgumentException();
+        discard.push(c);
+         
+    } // top
+
+    public void consolidate() {
+
+        while (!discard.empty()) {
+            stock.push(discard.pop());
+
+        } // while
+
+    } // addBack
+
     public void shuffle() {
 
         ArrayList<Card> shuffler = new ArrayList<>();
 
-        while (!deck.empty()) {
-            shuffler.add(deck.pop());
+        while (!stock.empty()) {
+            shuffler.add(stock.pop());
 
         } // while
 
@@ -72,13 +91,21 @@ public class Deck {
 
         while (shuffler.size() > 0) {
             randomIndex = (int)(Math.random() * shuffler.size());
-            deck.push(shuffler.remove(randomIndex));
+            stock.push(shuffler.remove(randomIndex));
 
         } // while
 
     } // shuffle
 
+    public int size() {
+        return stock.size();
 
+    } // size
+
+    public String toString() {
+        return "Deck";
+
+    } // toString
 
     private static final Card[] standardDeck = {
         

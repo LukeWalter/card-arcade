@@ -3,7 +3,7 @@ package cards.standard;
 public class Card {
 
     private Suit suit;
-    private String value;
+    private String faceValue;
     
     public Card(String v, Suit s) throws IllegalArgumentException {
         suit = s;
@@ -13,7 +13,7 @@ public class Card {
 
     public Card(Card other) {
         suit = other.suit;
-        value = other.value;
+        faceValue = other.faceValue;
 
     } // Constructor
 
@@ -22,14 +22,14 @@ public class Card {
 
     } // getSuit
 
-    public String getValue() {
-        return value;
+    public String getFaceValue() {
+        return faceValue;
 
     } // getValue
 
     public String toString() {
         if (suit == Suit.WILD) return "[WILD CARD]";
-        else return "[" + value + " of " + suit + "]";
+        else return "[" + faceValue + " of " + suit + "]";
 
     } // toString
 
@@ -60,7 +60,7 @@ public class Card {
         } // if
 
         if (newValue == null) throw new IllegalArgumentException();
-        else value = newValue;
+        else faceValue = newValue;
 
     } // setValue
 
